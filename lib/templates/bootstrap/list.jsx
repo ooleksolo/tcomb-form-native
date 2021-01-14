@@ -79,4 +79,4 @@ function list(locals) {
   );
 }
 
-module.exports = list;
+export default list;

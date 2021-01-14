@@ -13,4 +13,4 @@ t.form.Form.defaultProps = {
   i18n: t.form.Form.i18n
 };
 
-module.exports = t;
+export default t;

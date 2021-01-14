@@ -224,4 +224,4 @@ function datepicker(locals) {
   );
 }
 
-module.exports = datepicker;
+export default datepicker;

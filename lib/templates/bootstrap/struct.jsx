@@ -37,4 +37,4 @@ function struct(locals) {
   );
 }
 
-module.exports = struct;
+export default struct;

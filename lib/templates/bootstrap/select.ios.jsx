@@ -183,4 +183,4 @@ function select(locals) {
   );
 }
 
-module.exports = select;
+export default select;

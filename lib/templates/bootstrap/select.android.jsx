@@ -1,7 +1,8 @@
 var React = require("react");
-var { View, Text, Switch } = require("react-native");
+var { View, Text } = require("react-native");
+var { Picker } = require("@react-native-community/picker");
 
-function checkbox(locals) {
+function select(locals) {
   if (locals.hidden) {
     return null;
   }
@@ -9,14 +10,18 @@ function checkbox(locals) {
   var stylesheet = locals.stylesheet;
   var formGroupStyle = stylesheet.formGroup.normal;
   var controlLabelStyle = stylesheet.controlLabel.normal;
-  var checkboxStyle = stylesheet.checkbox.normal;
+  var selectStyle = Object.assign(
+    {},
+    stylesheet.select.normal,
+    stylesheet.pickerContainer.normal
+  );
   var helpBlockStyle = stylesheet.helpBlock.normal;
   var errorBlockStyle = stylesheet.errorBlock;
 
   if (locals.hasError) {
     formGroupStyle = stylesheet.formGroup.error;
     controlLabelStyle = stylesheet.controlLabel.error;
-    checkboxStyle = stylesheet.checkbox.error;
+    selectStyle = stylesheet.select.error;
     helpBlockStyle = stylesheet.helpBlock.error;
   }
 
@@ -33,25 +38,31 @@ function checkbox(locals) {
       </Text>
     ) : null;
 
+  var options = locals.options.map(({ value, text }) => (
+    <Picker.Item key={value} value={value} label={text} />
+  ));
+
   return (
     <View style={formGroupStyle}>
       {label}
-      <Switch
+      <Picker
         accessibilityLabel={locals.label}
         ref="input"
-        disabled={locals.disabled}
-        onTintColor={locals.onTintColor}
-        thumbTintColor={locals.thumbTintColor}
-        tintColor={locals.tintColor}
-        style={checkboxStyle}
-        onValueChange={value => locals.onChange(value)}
-        value={locals.value}
-        testID={locals.testID}
-      />
+        style={selectStyle}
+        selectedValue={locals.value}
+        onValueChange={locals.onChange}
+        help={locals.help}
+        enabled={!locals.disabled}
+        mode={locals.mode}
+        prompt={locals.prompt}
+        itemStyle={locals.itemStyle}
+      >
+        {options}
+      </Picker>
       {help}
       {error}
     </View>
   );
 }
 
-module.exports = checkbox;
+export default select;

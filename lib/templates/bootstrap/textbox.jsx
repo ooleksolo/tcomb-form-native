@@ -90,4 +90,4 @@ function textbox(locals) {
   );
 }
 
-module.exports = textbox;
+export default textbox;
